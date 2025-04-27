@@ -3,16 +3,17 @@ import path from "node:path";
 
 const list = async () => {
   try {
-    const files = fs.readdir(
+    const files = await fs.readdir(
       path.resolve(import.meta.dirname, "files"),
       { withFileTypes: true },
-      (error, files) => {
+      (error) => {
         if (error) throw new Error("FS operation failed");
-        console.log(files.map((elem) => elem.name));
       }
     );
+
+    console.log(files.map((elem) => elem.name));
   } catch (error) {
-    throw new Error(error);
+    throw new Error("FS operation failed");
   }
 };
 
